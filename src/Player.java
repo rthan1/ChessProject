@@ -16,9 +16,11 @@
 public class Player {
     public boolean blackSide;
     public String name;
+    public boolean inCheck;
     public Player(boolean isBlack, String name) {
         this.name = name;
         blackSide = isBlack;
+        inCheck = false;
     }
 
     /***********************************************************
@@ -29,5 +31,11 @@ public class Player {
      **********************************************************/
     public boolean isBlackSide() {
         return this.blackSide;
+    }
+    public void setInCheck(boolean check) {
+        this.inCheck = check;
+    }
+    public boolean isInCheck() {
+        return this.inCheck;
     }
 }

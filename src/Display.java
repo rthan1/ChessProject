@@ -131,6 +131,35 @@ public class Display extends JFrame implements MouseListener {
                     }
                 }
 
+
+                if(game.currentPlayer != null && game.currentPlayer.isInCheck()) {
+                    if(game.currentPlayer.isBlackSide()) {
+                        Spot checkSpot = board.findSpotOnBoard(board.pieceListBlack.get(board.getKing(board.pieceListBlack)));
+                        if(checkSpot.getX() == row && checkSpot.getY() == col) {
+                            JPanel check = new JPanel();
+                            check.setPreferredSize(new Dimension(expectedCellSize, expectedCellSize));
+                            check.setOpaque(true);
+                            check.setBackground(new Color(255, 0, 0));
+                            check.repaint();
+
+                            squarePanel.add(check);
+                        }
+                    }
+                    else if(!game.currentPlayer.isBlackSide()) {
+                        Spot checkSpot = board.findSpotOnBoard(board.pieceListWhite.get(board.getKing(board.pieceListWhite)));
+                        if(checkSpot.getX() == row && checkSpot.getY() == col) {
+                            JPanel check = new JPanel();
+                            check.setPreferredSize(new Dimension(expectedCellSize, expectedCellSize));
+                            check.setOpaque(true);
+                            check.setBackground(new Color(255, 0, 0));
+                            check.repaint();
+
+                            squarePanel.add(check);
+                        }
+                    }
+                }
+
+
                 // Add tile first, then piece (piece is on top)
                 if(clickCounter == 0 && p!= null && p.equals(currentPiece)) {
                     JPanel highlighter = new JPanel();

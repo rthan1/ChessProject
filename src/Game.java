@@ -61,6 +61,7 @@ public class Game {
         endSpot = board.getSpot(row, col);
         spots.clear();
         ValidMove();
+        inCheck();
     }
 
     public void castleKingSide() {
@@ -168,16 +169,21 @@ public class Game {
             int blackKing = board.getKing(board.pieceListBlack);
             Spot spot = board.findSpotOnBoard(board.pieceListBlack.get(blackKing));
             for (Piece piece : board.pieceListWhite) {
-                if (piece.validMove(board, board.findSpotOnBoard(piece), spot))
+                if (piece.validMove(board, board.findSpotOnBoard(piece), spot)) {
+                    currentPlayer.setInCheck(true);
+                    display.drawBoard(board);
                     return true;
+                }
             }
         }
         else {
             int whiteKing = board.getKing(board.pieceListWhite);
             Spot spot = board.findSpotOnBoard(board.pieceListWhite.get(whiteKing));
             for (Piece piece : board.pieceListBlack) {
-                if (piece.validMove(board, board.findSpotOnBoard(piece), spot))
+                if (piece.validMove(board, board.findSpotOnBoard(piece), spot)) {
+                    currentPlayer.setInCheck(true);
                     return true;
+                }
             }
         }
         return false;
@@ -195,7 +201,8 @@ public class Game {
         }
 
         if (inCheck()) {
-            allowedMove();
+            if(allowedMove())
+                currentPlayer.setInCheck(false);
         }
 
         if(!allowedMove()) {
